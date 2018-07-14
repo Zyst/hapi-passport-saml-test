@@ -1,0 +1,1 @@
+### hapi-passport-saml demo application
