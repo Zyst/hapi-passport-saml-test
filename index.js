@@ -18,20 +18,22 @@ const controllers = [
 
 const samlOptions = {
   saml: {
-    callbackUrl: "http://localhost:7000/saml/sso",
-    logoutCallbackUrl: "http://localhost:7000/saml/sso",
-    logoutUrl: "http://localhost:7000/saml/sso",
+    callbackUrl: "http://localhost:8080/api/sso/v1/assert",
+    logoutCallbackUrl: "http://localhost:8080/api/sso/v1/notifylogout",
+    logoutUrl: "https://zyst.samlidp.io/saml2/idp/SingleLogoutService.php",
     host: "localhost:8080",
     protocol: "http",
-    entryPoint: "https://my-idp.samlidp.io/saml2/idp/SSOService.php",
-    cert: fs.readFileSync(`${__dirname}/cert.crt`),
+    entryPoint: "https://zyst.samlidp.io/saml2/idp/SSOService.php",
+    decryptionPvk: fs.readFileSync(__dirname + "/private.key").toString(),
+    cert: '...',
     issuer: "my-idp-saml"
   },
   config: {
-    cookieName: "saml-demo",
+    cookieName: "session",
+    decryptionCert: '...',
     routes: {
       metadata: {
-        path: "/metadata"
+        path: "https://zyst.samlidp.io/saml2/idp/metadata.php"
       },
       assert: {
         path: "/api/sso/v1/assert"
